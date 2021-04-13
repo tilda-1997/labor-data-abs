@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import Filter from './Components/Filters';
+import Home from './Components/Home';
 
 function App() {
   return (
     <div className="App-header">
       <header>
-      <h1>Test</h1>
-      <Filter />
+      <h1>Labor Data (2020~2021) </h1>
+      <Home />
       </header>
     </div>
   );
