@@ -17,10 +17,10 @@ const Filter:React.FC = () => {
         <>
         <Div>
             <h2> &equiv; Filter </h2>
-            <Pp> &diams; State or Territory</Pp><State />
+            <Pp> &#10029; State or Territory</Pp><State />
 
 
-            <Pp> &diams; Industry</Pp>
+            <Pp> &#10038; Industry</Pp>
             <Select 
             isMulti
             name         = 'industry'
@@ -29,7 +29,7 @@ const Filter:React.FC = () => {
             styles={customStyle}
             />
 
-            <Pp> &diams; Sex</Pp><SexGroup />
+            <Pp> &#10043; Sex</Pp><SexGroup />
         </Div>
         </>
     )

@@ -159,16 +159,15 @@ const Chart = (props: ChartProps) => {
     return (
         <ChartDiv>
             <div>
-                <span style={{fontWeight: 'bold'}}>State and Territory: </span>&nbsp;&nbsp;
-                <span style={{color: color('Australia')}}>&#9635; &nbsp;Australia</span> &nbsp;&nbsp;
-                <span style={{color: color('ACT')}}>&#9635;&nbsp;ACT</span> &nbsp;&nbsp;
-                <span style={{color: color('NSW')}}>&#9635;&nbsp;NSW</span> &nbsp;&nbsp;
-                <span style={{color: color('NT')}}>&#9635;&nbsp;NT</span> &nbsp;&nbsp;
-                <span style={{color: color('QLD')}}>&#9635;&nbsp;QLD</span> &nbsp;&nbsp;
-                <span style={{color: color('SA')}}>&#9635;&nbsp;SA</span> &nbsp;&nbsp;
-                <span style={{color: color('TAS')}}>&#9635;&nbsp;TAS</span> &nbsp;&nbsp;
-                <span style={{color: color('VIC')}}>&#9635;&nbsp;VIC</span> &nbsp;&nbsp;
-                <span style={{color: color('WA')}}>&#9635;&nbsp;WA</span> &nbsp;&nbsp;
+                <span style={{color: color('Australia')}}>&#9635; &nbsp;</span> Australia&nbsp;&nbsp;
+                <span style={{color: color('ACT')}}>&#9635;&nbsp;</span> ACT&nbsp;&nbsp;
+                <span style={{color: color('NSW')}}>&#9635;&nbsp;</span> NSW&nbsp;&nbsp;
+                <span style={{color: color('NT')}}>&#9635;&nbsp;</span> NT&nbsp;&nbsp;
+                <span style={{color: color('QLD')}}>&#9635;&nbsp;</span> QLD&nbsp;&nbsp;
+                <span style={{color: color('SA')}}>&#9635;&nbsp;</span> SA&nbsp;&nbsp;
+                <span style={{color: color('TAS')}}>&#9635;&nbsp;</span> TAS&nbsp;&nbsp;
+                <span style={{color: color('VIC')}}>&#9635;&nbsp;</span> VIC&nbsp;&nbsp;
+                <span style={{color: color('WA')}}>&#9635;&nbsp;</span> WA&nbsp;&nbsp;
             </div>
             <br />
        
