@@ -87,7 +87,7 @@ const Chart = (props: ChartProps) => {
         for (var i = 0; i <= 57; i++) {
           // var str = '';
           let str = null 
-          str = data[1].wages[i][0]
+          str = data[0].wages[i][0]
           // time.push(new Date(data[0].wages[i].date))
           time.push(new Date(str))
         }

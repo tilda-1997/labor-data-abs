@@ -12,3 +12,14 @@ export interface AbsData {
     state: string,
     population: string, 
 }
+
+export interface Filters {
+    sex: string[],
+    state: string[],
+    industry: string[]
+}
+
+export interface SelectForInd {
+    value: string;
+    label: string;
+  }
