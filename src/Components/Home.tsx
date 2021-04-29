@@ -7,8 +7,6 @@ import { ChartProps, AbsData } from "../Types";
 import { Grid } from "./styled";
 import JSON from "../Data/data-d3";
 
-// import Test from "./Test";
-// https://api.observablehq.com/@tilda-1997/chart.tgz?v=3
 
 const Home: React.FC = () => {
     // const data = Abs
@@ -30,8 +28,8 @@ const Home: React.FC = () => {
             {/* <JSONProvider value={Abs}> */}
             <JSONProvider value={json}>
                 <Filter />
-                {/* { data? <Chart data={json} /> : <p>loading...</p>} */}
-                { data? <Chart data={test4} /> : <p>loading...</p>}
+                { data? <Chart data={json} /> : <p>loading...</p>}
+                {/* { data? <Chart data={test4} /> : <p>loading...</p>} */}
             </JSONProvider>
         </Grid>
     )
