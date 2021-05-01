@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Chart from "./Chart";
 import Filter from "./Filter/Filters";
 import { JSONProvider } from '../Data/ABSContext'
@@ -11,25 +11,34 @@ import JSON from "../Data/data-d3";
 const Home: React.FC = () => {
     // const data = Abs
     // console.log('Abs', Abs[0].name)
+
     const json = JSON.content
 
-    const test1 = json[0]
-    const test3 = json[2]
-    const test = [] as AbsData[]
-    const test2 = test.concat(test1)
-    const test4= test2.concat(test3)
-    console.log('test', test1, typeof(test1))
+    // const test_0 = [] as AbsData[] 
+    // const test = test_0.concat(json[2])
+    // console.log(test)
 
 
-    const [data, setData] = React.useState([])
+// the following code leads to 'Too many re-renders. React limits the number of renders to prevent an infinite loop'
+
+    // const[selected, setSeletced] = useState([] as AbsData[])
+    // Object.keys(json).map((k:any) => {
+    //     let selNew = [] as AbsData[]
+    //     if (json[k].name='Australis-0. All industries-All'){
+    //         let sel = [] as AbsData[]
+    //         selNew = selected.concat(json[k])
+    //     }
+    //     setSeletced(selNew)  
+    // })
+
 
     return (
         <Grid>
             {/* <JSONProvider value={Abs}> */}
             <JSONProvider value={json}>
                 <Filter />
-                { data? <Chart data={json} /> : <p>loading...</p>}
-                {/* { data? <Chart data={test4} /> : <p>loading...</p>} */}
+                {/* {data? <Chart data={selected} /> : <p>loading...</p>} */}
+                <Chart data={json} /> 
             </JSONProvider>
         </Grid>
     )
