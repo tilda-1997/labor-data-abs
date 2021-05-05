@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import * as d3 from 'd3';
 import { ChartProps , AbsData} from "../Types";
-import { ChartDiv, Pp } from "./styled";
+import { ChartDiv, DivSlider, Button } from "./styled";
 import { linkHorizontal } from "d3";
+import Slider from '@material-ui/core/Slider'
+import { withStyles } from '@material-ui/core/styles';
 
 const Chart = (props: ChartProps) => {
 
@@ -103,33 +105,37 @@ const Chart = (props: ChartProps) => {
     }
 
     // const year = timeList[0]
-    // console.log('timelist', timeList, 'year', year)
     // const currentData = dataAt(year)
-    // console.log('current', currentData)
     const [currentData, setCurrentData] = useState([] as AbsData[])
-    const [play, setPlay] = useState(true)
+    const [play, setPlay] = useState(false)
     const [yearAtPoint, setYear] = useState('' as any)
+    const [valuetext, setValueText] = useState(0)
+    const [valueSlide, setValueSlide] = useState()
+    console.log('valueSlide', valueSlide)
 
     const playChart = () => {
+            // for(let i=0;i<=57;i++){
+            //    setInterval(()=>{
+            //         let year = timeList[i];
+            //         let cur = dataAt(year);
+            //         setYear(year);
+            //         setCurrentData(cur);
+            //     }, 800)
+        if (play){
             for(let i=0;i<=57;i++){
-                // setInterval(()=>{
-                //     if(play){
-                //         let year = timeList[i];
-                //         let cur = dataAt(year);
-                //         setCurrentData(cur);
-                //     }
-                // }, 4000)
-               if (play){
-                setTimeout(()=>{
+                if(play){
+                    setInterval(()=>{
                         let year = timeList[i];
                         let cur = dataAt(year);
                         setYear(year);
+                        setValueText(i);
                         setCurrentData(cur);
-                }, 400*i)
-                } else break
-            }
+                    }, 1000)
+                }else break
+            } 
+        }
     }
-
+    
 
    useEffect(() => {
     const svg = d3.select("#canvas")
@@ -174,7 +180,37 @@ const Chart = (props: ChartProps) => {
         .attr("r", d => radius(d.population));
     }
     update(currentData); 
-   }, [currentData, data])
+   }, [currentData, data, play])
+
+   const PrettoSlider = withStyles({
+    root: {
+      color: '#52af77',
+      height: 8,
+    },
+    thumb: {
+      height: 24,
+      width: 24,
+      backgroundColor: '#fff',
+      border: '2px solid currentColor',
+      marginTop: -8,
+      marginLeft: -12,
+      '&:focus, &:hover, &$active': {
+        boxShadow: 'inherit',
+      },
+    },
+    active: {},
+    valueLabel: {
+      left: 'calc(-50% + 4px)',
+    },
+    track: {
+      height: 8,
+      borderRadius: 4,
+    },
+    rail: {
+      height: 8,
+      borderRadius: 4,
+    },
+  })(Slider);
 
     return (
         <ChartDiv>
@@ -195,12 +231,30 @@ const Chart = (props: ChartProps) => {
        
             <svg id="canvas" style={{ width: '954px', height: '560px' }}></svg>
             <br />
+            
+            <DivSlider>
+                <PrettoSlider 
+                    defaultValue={yearAtPoint}
+                    value={valuetext}
+                    aria-labelledby="discrete-slider"
+                    valueLabelDisplay="auto"
+                    marks={true}
+                    step={1}
+                    min={0}
+                    max={57}
+                />
+            </DivSlider>
+            
 
-            <button onClick={() => {
-                playChart()
-                }}>Play</button> &nbsp;
-            <button onClick={() => {setPlay(false)}}>Pause</button>
-            <Pp>Current Date: {(yearAtPoint=='') ? '2020-01-03' : JSON.stringify(yearAtPoint).substring(1,11)}</Pp>
+            <div>
+                <Button onClick={() => {
+                    setPlay(!play);
+                    playChart()
+                    }}>Play</Button>  &nbsp;&nbsp;
+                <button onClick={() => setPlay(false)}>Pause</button> &nbsp;&nbsp;
+                <p style={{display:'inline-block'}}>Current Date: {(yearAtPoint=='') ? '2020-01-03' : JSON.stringify(yearAtPoint).substring(1,11)}</p>
+             </div>
+            
            
        
         </ChartDiv>

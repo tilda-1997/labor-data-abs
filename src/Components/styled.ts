@@ -14,3 +14,12 @@ export const Grid = styled.div`
 export const ChartDiv = styled.div`
     padding: 2rem 5rem;
 `
+
+export const DivSlider = styled.div`
+    padding-left: 1rem;
+    padding-right: 4rem
+    
+`
+export const Button = styled.button`
+    display: inline;
+`
