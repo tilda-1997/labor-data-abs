@@ -22,4 +22,10 @@ export interface Filters {
 export interface SelectForInd {
     value: string;
     label: string;
-  }
+}
+
+export interface FilterProps {
+    chooseIndustry: (e:any) => void;
+    chooseOption: (e:any) => (e:any) => void;
+    filterContent: Filters
+}

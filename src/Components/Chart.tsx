@@ -13,6 +13,7 @@ const Chart = (props: ChartProps) => {
     const width = 954
     const margin = ({top: 10, right: 20, bottom: 30, left: 40})
     const color = d3.scaleOrdinal(data.map(d => d.state), d3.schemeCategory10).unknown("white")
+    // const color = d3.scaleOrdinal(data.map(d => d.name), d3.schemeCategory10).unknown("white")
     const radius = d3.scaleSqrt([0, 3e5], [0, width / 12])
     const bisectYear = d3.bisector(([year]) => year).left
 
@@ -66,7 +67,7 @@ const Chart = (props: ChartProps) => {
         for (var i = 0; i <= 57; i++) {
           // var str = '';
           let str = null 
-          str = data[0].wages[i][0]
+          str = data[0]?.wages[i][0]
           // time.push(new Date(data[0].wages[i].date))
           time.push(new Date(str))
         }
@@ -107,6 +108,7 @@ const Chart = (props: ChartProps) => {
     // console.log('current', currentData)
     const [currentData, setCurrentData] = useState([] as AbsData[])
     const [play, setPlay] = useState(true)
+    const [yearAtPoint, setYear] = useState('' as any)
 
     const playChart = () => {
             for(let i=0;i<=57;i++){
@@ -121,6 +123,7 @@ const Chart = (props: ChartProps) => {
                 setTimeout(()=>{
                         let year = timeList[i];
                         let cur = dataAt(year);
+                        setYear(year);
                         setCurrentData(cur);
                 }, 400*i)
                 } else break
@@ -148,7 +151,7 @@ const Chart = (props: ChartProps) => {
         .call(grid);
     
     const circle = svg.append("g")
-        .attr("stroke", "black")
+        .attr("stroke", "grey")
         .selectAll("circle")
         // dataAt will pick different date data
         .data(dataAt(timeList[0]), (d:any) => d.name)
@@ -157,24 +160,28 @@ const Chart = (props: ChartProps) => {
         .attr("cx", d => x(d.jobs))
         .attr("cy", d => y(d.wages))
         .attr("r", d => radius(Number(d.population)))
+        // .attr("fill", d => color(d.name))
         .attr("fill", d => color(d.state))
         .call(circle => circle.append("title")
-            .text(d => [d.state, 'population '+ d.population+' (000)', 
-                        'jobs: '+ d.jobs, 'wages: '+ d.wages, d.name  ].join("\n")));
+            .text(d => [ d.name, d.state, 'population '+ d.population+' (000)', 
+                        'jobs: '+ d.jobs, 'wages: '+ d.wages ].join("\n")));
      
     const update = (data:any) => {
         circle.data(data, (d:any) => d.name)
-        .sort((a, b) => d3.descending(a.jobs, b.jobs))
+        .sort((a, b) => d3.descending(a.population, b.population))
         .attr("cx", d => x(d.jobs))
         .attr("cy", d => y(d.wages))
+        .attr("r", d => radius(d.population));
     }
-    update(currentData)  
-   }, [currentData, play])
+    update(currentData); 
+   }, [currentData, data])
 
     return (
         <ChartDiv>
             <div>
-                <span style={{color: color('Australia')}}>&#9635; &nbsp;</span> Australia&nbsp;&nbsp;
+                {data.map(d => 
+                    <><span style={{color: color(d.state)}}>&#9635; &nbsp;</span>{d.name}&nbsp;&nbsp;</>)}
+                {/* <span style={{color: color('Australia')}}>&#9635; &nbsp;</span> Australia&nbsp;&nbsp;
                 <span style={{color: color('ACT')}}>&#9635;&nbsp;</span> ACT&nbsp;&nbsp;
                 <span style={{color: color('NSW')}}>&#9635;&nbsp;</span> NSW&nbsp;&nbsp;
                 <span style={{color: color('NT')}}>&#9635;&nbsp;</span> NT&nbsp;&nbsp;
@@ -182,7 +189,7 @@ const Chart = (props: ChartProps) => {
                 <span style={{color: color('SA')}}>&#9635;&nbsp;</span> SA&nbsp;&nbsp;
                 <span style={{color: color('TAS')}}>&#9635;&nbsp;</span> TAS&nbsp;&nbsp;
                 <span style={{color: color('VIC')}}>&#9635;&nbsp;</span> VIC&nbsp;&nbsp;
-                <span style={{color: color('WA')}}>&#9635;&nbsp;</span> WA&nbsp;&nbsp;
+                <span style={{color: color('WA')}}>&#9635;&nbsp;</span> WA&nbsp;&nbsp; */}
             </div>
             <br />
        
@@ -193,102 +200,11 @@ const Chart = (props: ChartProps) => {
                 playChart()
                 }}>Play</button> &nbsp;
             <button onClick={() => {setPlay(false)}}>Pause</button>
-            {/* <Pp>{currentData}</Pp> */}
+            <Pp>Current Date: {(yearAtPoint=='') ? '2020-01-03' : JSON.stringify(yearAtPoint).substring(1,11)}</Pp>
+           
        
         </ChartDiv>
     )
 }
 
 export default Chart
-
-
-
-    // original D3 
-    // disposal
-    // function disposal(element:any) {
-    //     return new Promise(resolve => {
-    //       requestAnimationFrame(() => {
-    //         const target = element.closest(".observablehq");
-    //         if (!target) return resolve();
-    //         const observer:any = new MutationObserver(mutations => {
-    //           if (target.contains(element)) return;
-    //           observer.disconnect(), resolve();
-    //         });
-    //         observer.observe(target, {childList: true});
-    //       });
-    //     });
-    //   }
-
-
-    // the scrubber
-    // const Scrubber = (values:any, {
-    //     format = (value:any) => value,
-    //     initial = 0,
-    //     delay:any = null,
-    //     autoplay = true,
-    //     loop = true,
-    //     loopDelay = null,
-    //     alternate = false
-    //   } = {}) => {
-    //     values = Array.from(values);
-    //     const form = <form style={{font: '12px', display: 'flex', height: '33px', alignItems: 'center'}}>
-    //     <button id='b' type='button' style={{marginRight: '0.4em', width: '5em'}}></button>
-    //     <label style={{display: 'flex', alignItems: 'center'}}>
-    //     <input name='i' type='range' min={0} max={values.length - 1} value={initial} step={1} style={{width: '180px'}} />
-    //     <output name='o' style={{marginLeft: "0.4em"}}></output></label></form>;
-      
-    //     let frame:any = null;
-    //     let timer:any = null;
-    //     let interval:any = null;
-    //     let direction = 1;
-
-    //     function start() {
-    //         form.b.textContent = "Pause";
-    //         if (delay === null) frame = requestAnimationFrame(tick);
-    //         else interval = setInterval(tick, delay);
-    //       }
-    //       function stop() {
-    //         form.b.textContent = "Play";
-    //         if (frame !== null) cancelAnimationFrame(frame), frame = null;
-    //         if (timer !== null) clearTimeout(timer), timer = null;
-    //         if (interval !== null) clearInterval(interval), interval = null;
-    //       }
-    //       function running() {
-    //         return frame !== null || timer !== null || interval !== null;
-    //       }
-    //       function tick() {
-    //         if (form.i.valueAsNumber === (direction > 0 ? values.length - 1 : direction < 0 ? 0 : NaN)) {
-    //           if (!loop) return stop();
-    //           if (alternate) direction = -direction;
-    //           if (loopDelay !== null) {
-    //             if (frame !== null) cancelAnimationFrame(frame), frame = null;
-    //             if (interval !== null) clearInterval(interval), interval = null;
-    //             timer = setTimeout(() => (step(), start()), loopDelay);
-    //             return;
-    //           }
-    //         }
-    //         if (delay === null) frame = requestAnimationFrame(tick);
-    //         step();
-    //       }
-    //       function step() {
-    //         form.i.valueAsNumber = (form.i.valueAsNumber + direction + values.length) % values.length;
-    //         form.i.dispatchEvent(new CustomEvent("input", {bubbles: true}));
-    //       }
-    //       form.i.oninput = event => {
-    //         if (event && event.isTrusted && running()) stop();
-    //         form.value = values[form.i.valueAsNumber];
-    //         form.o.value = format(form.value, form.i.valueAsNumber, values);
-    //       };
-    //       form.b.onclick = () => {
-    //         if (running()) return stop();
-    //         direction = alternate && form.i.valueAsNumber === values.length - 1 ? -1 : 1;
-    //         form.i.valueAsNumber = (form.i.valueAsNumber + direction) % values.length;
-    //         form.i.dispatchEvent(new CustomEvent("input", {bubbles: true}));
-    //         start();
-    //       };
-    //       form.i.oninput();
-    //       if (autoplay) start();
-    //       else stop();
-    //       disposal(form).then(stop);
-    //       return form;
-    //   }
