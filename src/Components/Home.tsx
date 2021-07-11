@@ -105,7 +105,7 @@ const Home: React.FC = () => {
                 if (filterContent.state.includes(json[k].state) && filterContent.sex.includes(json[k].sex) && filterContent.industry.includes(json[k].industry)){            
                     selNew = selNew.concat(json[k])
                     setSeleted(selNew) 
-                    console.log('test', selected)
+                    // console.log('test', selected)
                 }
                 
 

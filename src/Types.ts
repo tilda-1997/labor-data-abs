@@ -3,14 +3,14 @@ export interface ChartProps {
 }
 
 export interface AbsData {
-    index: number,
     jobs: (string | number)[][],
     wages: (string | number)[][],
     name: string,
     industry: string,
     sex: string, 
     state: string,
-    population: string, 
+    population: string,
+    type: string, 
 }
 
 export interface Filters {

@@ -93,47 +93,53 @@ const Chart = (props: ChartProps) => {
 
     const dataAt = (year:any) => {
         return data.map(d => ({
-          index: d.index,
+        //   index: d.index,
           name: d.name,
           state: d.state,
           population: d.population,
           industry: d.industry,
           sex: d.sex,
+          type: d.type,
           jobs: valueAt(d.jobs, formatDate(year)),
           wages: valueAt(d.wages, formatDate(year))
         }));
     }
 
     // const year = timeList[0]
+    console.log('time', timeList)
     // const currentData = dataAt(year)
     const [currentData, setCurrentData] = useState([] as AbsData[])
     const [play, setPlay] = useState(false)
     const [yearAtPoint, setYear] = useState('' as any)
     const [valuetext, setValueText] = useState(0)
-    const [valueSlide, setValueSlide] = useState()
-    console.log('valueSlide', valueSlide)
-
+    
+    const [nTimeOut, SetNTime] = useState(null as any)
     const playChart = () => {
             // for(let i=0;i<=57;i++){
             //    setInterval(()=>{
             //         let year = timeList[i];
             //         let cur = dataAt(year);
             //         setYear(year);
+            //         setValueText(i);
             //         setCurrentData(cur);
             //     }, 800)
-        if (play){
+            // }
             for(let i=0;i<=57;i++){
                 if(play){
-                    setInterval(()=>{
-                        let year = timeList[i];
-                        let cur = dataAt(year);
-                        setYear(year);
-                        setValueText(i);
-                        setCurrentData(cur);
-                    }, 1000)
-                }else break
-            } 
-        }
+                setTimeout(()=>{
+                    let year = timeList[i];
+                    let cur = dataAt(year);
+                    setYear(year);
+                    setValueText(i);
+                    setCurrentData(cur);
+                },500*i)
+            }
+            }
+        
+    }
+
+    const stopPlay = () => {
+        clearInterval(nTimeOut)
     }
     
 
@@ -160,7 +166,7 @@ const Chart = (props: ChartProps) => {
         .attr("stroke", "grey")
         .selectAll("circle")
         // dataAt will pick different date data
-        .data(dataAt(timeList[0]), (d:any) => d.name)
+        .data(dataAt(timeList[0]), (d:any) => {console.log('dName',d); return d.name; })
         .join("circle")
         .sort((a, b) => d3.descending(a.jobs, b.jobs))
         .attr("cx", d => x(d.jobs))
@@ -171,13 +177,15 @@ const Chart = (props: ChartProps) => {
         .call(circle => circle.append("title")
             .text(d => [ d.name, d.state, 'population '+ d.population+' (000)', 
                         'jobs: '+ d.jobs, 'wages: '+ d.wages ].join("\n")));
-     
+    
+    let counter = 0
+    console.log()
     const update = (data:any) => {
-        circle.data(data, (d:any) => d.name)
+        circle.data(data, (d:any) => { counter++; console.log('counter', counter, d.name); return d.name})
         .sort((a, b) => d3.descending(a.population, b.population))
         .attr("cx", d => x(d.jobs))
         .attr("cy", d => y(d.wages))
-        .attr("r", d => radius(d.population));
+        .attr("r", d => radius(+d.population));
     }
     update(currentData); 
    }, [currentData, data, play])
@@ -251,12 +259,10 @@ const Chart = (props: ChartProps) => {
                     setPlay(!play);
                     playChart()
                     }}>Play</Button>  &nbsp;&nbsp;
-                <button onClick={() => setPlay(false)}>Pause</button> &nbsp;&nbsp;
+                <button onClick={() => {setPlay(false); stopPlay()}}>Pause</button> &nbsp;&nbsp;
                 <p style={{display:'inline-block'}}>Current Date: {(yearAtPoint=='') ? '2020-01-03' : JSON.stringify(yearAtPoint).substring(1,11)}</p>
              </div>
             
-           
-       
         </ChartDiv>
     )
 }
