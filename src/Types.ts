@@ -1,5 +1,9 @@
 export interface ChartProps {
-    data: AbsData[]
+    data: AbsData[],
+    disable_filter: boolean,
+    setDisable: (e:any) => void,
+    play: boolean,
+    setPlay: (e:any) => void,
 }
 
 export interface AbsData {
@@ -27,5 +31,6 @@ export interface SelectForInd {
 export interface FilterProps {
     chooseIndustry: (e:any) => void;
     chooseOption: (e:any) => (e:any) => void;
-    filterContent: Filters
+    filterContent: Filters;
+    disable_filter: boolean
 }
