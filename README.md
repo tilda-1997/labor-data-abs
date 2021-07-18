@@ -3,7 +3,7 @@ This site represents the labour data of Australia during the COVID stage, from J
 
 The chart using D3 library for better data visualizations and the chart is published at 🔗 [Observable](https://observablehq.com/@tilda-1997/chart).
 
-📉 Here is a screenshot during one demonstration.
+Here is a screenshot during one demonstration.
 ![Image text](https://github.com/tilda-1997/labor-data-abs/blob/586e088680e3302b96f2e0deae772b96f24d61e2/demonstration.png)
 
 ### Initial state of the page
@@ -22,4 +22,5 @@ Move the cursor on one circle and the chart will show the detailed information o
 
 ### Disable the filter when the chart is playing
 Click on the 'play' button to start the chart. When the chart is playing, the filter will be disabled. Only after the demonstration the filters will be back to active.
+![Image text](https://github.com/tilda-1997/labor-data-abs/blob/782c2c6176a7302309967fd49cd2a303c7fe0c68/disable_filters.png)
 
