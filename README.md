@@ -22,5 +22,4 @@ Move the cursor on one circle and the chart will show the detailed information o
 
 ### Disable the filter when the chart is playing
 Click on the 'play' button to start the chart. When the chart is playing, the filter will be disabled. Only after the demonstration the filters will be back to active.
-![Image text](https://github.com/tilda-1997/labor-data-abs/blob/586e088680e3302b96f2e0deae772b96f24d61e2/disable%20filter.png)
 
