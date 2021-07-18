@@ -1,5 +1,24 @@
-# Getting Started with Create React App
+# Interactive Chart - Weekly Payroll Jobs & Wages 📈
+This site represents the labour data of Australia during the COVID stage, from Jan 2020 to Jan 2021. The original data comes from ABS (Australian Bureau of Statistics), and the data used in the chart has been preprocessed using python. This chart can dynamically reflect the changes in labour data over time according to time.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The chart using D3 library for better data visualizations and the chart is published at 🔗 [Observable](https://observablehq.com/@tilda-1997/chart).
+📉 Here is a screenshot during one demostarion.
+![Image text](https://github.com/tilda-1997/labor-data-abs/blob/586e088680e3302b96f2e0deae772b96f24d61e2/demonstration.png)
 
-The chart using D3 library for better data  visualizations and the chart is published at https://observablehq.com/@tilda-1997/chart.
+### Initial state of the page
+![Image text](https://github.com/tilda-1997/labor-data-abs/blob/586e088680e3302b96f2e0deae772b96f24d61e2/default.png)
+
+### The filter function
+The filters are designed to select more targeted groups with specific regions, industries and genders.
+![Image text](https://github.com/tilda-1997/labor-data-abs/blob/586e088680e3302b96f2e0deae772b96f24d61e2/filters.png)
+
+
+### Information display
+Move the cursor on one circle and the chart will show the detailed information of that specific group. Here are two examples.
+![Image text](https://github.com/tilda-1997/labor-data-abs/blob/586e088680e3302b96f2e0deae772b96f24d61e2/display%20circle%20info.png)
+![Image text](https://github.com/tilda-1997/labor-data-abs/blob/586e088680e3302b96f2e0deae772b96f24d61e2/display%20info.png)
+
+### Disable the filter when the chart is playing
+When the chart is being demonstrated, the filter will be disabled. Only after the demostarion the filters will be back to active.
+![Image text](https://github.com/tilda-1997/labor-data-abs/blob/586e088680e3302b96f2e0deae772b96f24d61e2/disable%20filter.png)
+
